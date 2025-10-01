@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGDEA - Sistema de Gestión Documental Electrónica de Archivo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .search-container {
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 300px;
+            padding: 15px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-btn {
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .clear-btn {
+            padding: 15px 25px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .clear-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .tree-container {
+            padding: 30px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        /* Estilos del árbol mejorados */
+        ul.tree, ul.tree ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        ul.tree ul {
+            margin-left: 25px;
+            border-left: 2px solid #e9ecef;
+            padding-left: 20px;
+        }
+
+        ul.tree li {
+            margin: 8px 0;
+            position: relative;
+        }
+
+        ul.tree li::before {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 15px;
+            width: 20px;
+            height: 2px;
+            background: #e9ecef;
+        }
+
+        ul.tree li:last-child::after {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 15px;
+            bottom: 0;
+            width: 2px;
+            background: white;
+        }
+
+        .caret {
+            cursor: pointer;
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .caret:hover {
+            background: #f8f9fa;
+            transform: translateX(5px);
+        }
+
+        .caret::before {
+            content: "▶";
+            color: #667eea;
+            display: inline-block;
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+            font-size: 12px;
+        }
+
+        .caret-down::before {
+            transform: rotate(90deg);
+        }
+
+        .nested {
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Elementos sin hijos */
+        .tree li:not(:has(.caret)) {
+            padding: 8px 12px;
+            margin: 4px 0;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #28a745;
+            transition: all 0.3s ease;
+        }
+
+        .tree li:not(:has(.caret)):hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        /* Resaltado para resultados de búsqueda */
+        mark {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+            box-shadow: 0 1px 3px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Estadísticas de búsqueda */
+        .search-stats {
+            margin-top: 15px;
+            padding: 15px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #1976d2;
+            display: none;
+        }
+
+        .search-stats.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .search-input {
+                min-width: 100%;
+            }
+            
+            .tree-container {
+                padding: 20px;
+            }
+            
+            ul.tree ul {
+                margin-left: 15px;
+                padding-left: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌳 SGDEA</h1>
+            <p>Sistema de Gestión Documental Electrónica de Archivo - Árbol de Configuración</p>
+        </div>
+
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar módulos, componentes o funcionalidades...">
+                <button class="search-btn" onclick="performSearch()">Buscar</button>
+                <button class="clear-btn" onclick="clearSearch()">Limpiar</button>
+            </div>
+            <div id="searchStats" class="search-stats"></div>
+        </div>
+
+        <div class="tree-container">
+            <ul class="tree">
+                <li>
+                    <span class="caret caret-down">🏛️ SGDEA - Sistema de Gestión Documental Electrónica de Archivo</span>
+                    <ul class="nested active">
+                        <li>
+                            <span class="caret">⚙️ SGDEA_PARAM_TRV - Parametrización Transversal</span>
+                            <ul class="nested">
+                                <li>
+                                    <span class="caret">🔢 SGDEA_NUM - Numeración de Radicados</span>
+                                    <ul class="nested">
+                                        <li>📥 SGDEA_NUM_ENT - Radicados de Entrada</li>
+                                        <li>📤 SGDEA_NUM_SAL - Radicados de Salida</li>
+                                        <li>📋 SGDEA_NUM_INT - Radicados Internos</li>
+                                        <li>📜 SGDEA_NUM_RES - Actos Administrativos (Resoluciones)</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="caret">⏰ SGDEA_TRESP - Tiempos de Respuesta Normativos</span>
+                                    <ul class="nested">
+                                        <li>📅 SGDEA_TRESP_L142 - Plazos Ley 142</li>
+                                        <li>📅 SGDEA_TRESP_L1755 - Plazos Ley 1755</li>
+                                        <li>📊 SGDEA_TRESP_VIG - Vigencias y Cómputo de Términos</li>
+                                        <li>🚨 SGDEA_TRESP_ALERT - Alertas por Vencimiento de Términos</li>
+                                    </ul>
+                                </li>
+                                <li>🌐 SGDEA_PARAM_GLOBAL - Parámetros Globales del Sistema</li>
+                                <li>📊 SGDEA_META - Configuración de Metadatos</li>
+                                <li>🗂️ SGDEA_CLASS - Clasificación Documental (Cuadro de Clasificación)</li>
+                                <li>📚 SGDEA_TRD - Retención Documental (TRD y TVD)</li>
+                                <li>📁 SGDEA_EXP_CONF - Configuración de Expedientes</li>
+                                <li>🏢 SGDEA_ORG - Estructura Orgánica (Dependencias)</li>
+                                <li>👥 SGDEA_USR - Administración de Usuarios y Grupos</li>
+                                <li>🔐 SGDEA_ROL - Administración de Roles y Permisos</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="caret">📄 SGDEA_GEST_DOC - Gestión Documental</span>
+                            <ul class="nested">
+                                <li>
+                                    <span class="caret">📬 SGDEA_RAD - Radicación y Correspondencia</span>
+                                    <ul class="nested">
+                                        <li>📥 SGDEA_RAD_ENT - Radicación de Documentos de Entrada</li>
+                                        <li>📤 SGDEA_RAD_SAL - Radicación de Documentos de Salida</li>
+                                        <li>📋 SGDEA_RAD_INT - Radicación de Documentos Internos</li>
+                                        <li>📜 SGDEA_RAD_RES - Emisión de Actos Administrativos (Resoluciones)</li>
+                                    </ul>
+                                </li>
+                                <li>🔄 SGDEA_TRAMITE - Gestión y Trámite Interno de Documentos</li>
+                                <li>📁 SGDEA_EXP - Gestión de Expedientes (Carpetas)</li>
+                                <li>📝 SGDEA_VERS - Control de Versiones de Documentos</li>
+                                <li>✅ SGDEA_VALID - Validaciones y Reglas de Negocio</li>
+                                <li>🔄 SGDEA_STATE - Estados y Ciclo de Vida del Documento</li>
+                                <li>👥 SGDEA_DUAL - Control Dual (Aprobación Dual)</li>
+                                <li>📋 SGDEA_PLANTILLAS - Plantillas y Generación Documental</li>
+                                <li>
+                                    <span class="caret">🗃️ SGDEA_ARCH_FIS - Administración de Archivo Físico</span>
+                                    <ul class="nested">
+                                        <li>📍 SGDEA_ARCH_LOC - Ubicación y Almacenamiento Físico</li>
+                                        <li>📖 SGDEA_PRESTAMOS - Préstamos Documentales</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="caret">🔗 SGDEA_INTEROP - Interoperabilidad</span>
+                            <ul class="nested">
+                                <li>📮 SGDEA_SIPOST - Integración con SIPOST (Operador 4-72)</li>
+                                <li>✉️ SGDEA_CERTIMAIL - Integración con Certimail (Operador 4-72)</li>
+                                <li>🌐 SGDEA_PQRS - Integración con Portal PQRS (Sede Electrónica)</li>
+                                <li>🔌 SGDEA_WEB_SERV - Servicios Web y API (Intercambio de Datos)</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="caret">🛠️ SGDEA_SERV_TRANS - Servicios Transversales</span>
+                            <ul class="nested">
+                                <li>🔍 SGDEA_BUSQUEDA - Búsqueda de Documentos</li>
+                                <li>📊 SGDEA_REPORT - Reportes e Indicadores</li>
+                                <li>🔍 SGDEA_CUMPL - Cumplimiento Normativo y Auditoría</li>
+                                <li>
+                                    <span class="caret">💾 SGDEA_PRESERV - Preservación Digital</span>
+                                    <ul class="nested">
+                                        <li>📄 SGDEA_PRESERV_PDF - Almacenamiento en formato PDF/A</li>
+                                        <li>🔒 SGDEA_CUSTODIA - Cadena de Custodia Digital</li>
+                                        <li>📋 SGDEA_COPIAS - Copias y Reproducciones Auténticas</li>
+                                    </ul>
+                                </li>
+                                <li>✍️ SGDEA_FIRMA_ELECT - Firma Electrónica</li>
+                                <li>🔐 SGDEA_FIRMA_DIG - Firma Digital</li>
+                                <li>📤📥 SGDEA_IMP_EXP - Exportación e Importación de Datos</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Función para normalizar texto (remover acentos y mayúsculas) para búsqueda
+            function normalizeText(str) {
+                return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+            }
+
+            // Manejo de colapso/expansión de ramas del árbol
+            var toggler = document.getElementsByClassName("caret");
+            for (var i = 0; i < toggler.length; i++) {
+                toggler[i].addEventListener("click", function() {
+                    this.parentElement.querySelector(".nested").classList.toggle("active");
+                    this.classList.toggle("caret-down");
+                });
+            }
+
+            // Funcionalidad de filtrado/búsqueda en el árbol
+            var searchInput = document.getElementById('searchInput');
+            var searchStats = document.getElementById('searchStats');
+            
+            function performSearch() {
+                var filter = searchInput.value.trim();
+                var filterNorm = normalizeText(filter);
+                var matchCount = 0;
+                var totalItems = 0;
+
+                // Eliminar resaltados previos
+                var marks = document.querySelectorAll('mark');
+                marks.forEach(function(mark) {
+                    var parent = mark.parentNode;
+                    parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                    parent.normalize();
+                });
+
+                if (!filter) {
+                    // Restaurar vista original si no hay filtro
+                    var allItems = document.querySelectorAll('.tree li');
+                    allItems.forEach(function(li) {
+                        li.style.display = '';
+                    });
+                    
+                    // Colapsar todas las ramas excepto la raíz
+                    var allNested = document.querySelectorAll('.nested');
+                    allNested.forEach(function(ul) {
+                        ul.classList.remove('active');
+                    });
+                    var allCarets = document.querySelectorAll('.caret');
+                    allCarets.forEach(function(span) {
+                        span.classList.remove('caret-down');
+                    });
+                    
+                    // Mantener expandida la raíz
+                    var rootCaret = document.querySelector('.tree > li > .caret');
+                    if (rootCaret) {
+                        rootCaret.classList.add('caret-down');
+                        var rootNested = rootCaret.parentElement.querySelector('.nested');
+                        if (rootNested) rootNested.classList.add('active');
+                    }
+                    
+                    searchStats.classList.remove('show');
+                    return;
+                }
+
+                // Expandir todas las ramas para evaluar todos los nodos
+                var nestedLists = document.querySelectorAll('.nested');
+                nestedLists.forEach(function(ul) {
+                    ul.classList.add('active');
+                });
+                var carets = document.querySelectorAll('.caret');
+                carets.forEach(function(span) {
+                    span.classList.add('caret-down');
+                });
+
+                // Filtrar elementos según el texto
+                var listItems = document.querySelectorAll('.tree li');
+                totalItems = listItems.length;
+                
+                listItems.forEach(function(li) {
+                    var text = li.firstChild.textContent || li.textContent;
+                    if (normalizeText(text).includes(filterNorm)) {
+                        li.style.display = '';
+                        matchCount++;
+                    } else {
+                        li.style.display = 'none';
+                    }
+                });
+
+                // Asegurar que los ancestros de un elemento coincidente permanezcan visibles
+                listItems.forEach(function(li) {
+                    if (li.style.display === 'none') {
+                        var childItems = li.querySelectorAll('li');
+                        childItems.forEach(function(child) {
+                            if (child.style.display !== 'none') {
+                                li.style.display = '';
+                            }
+                        });
+                    }
+                });
+
+                // Resaltar las coincidencias encontradas
+                listItems.forEach(function(li) {
+                    if (li.style.display !== 'none') {
+                        var labelElem = li.querySelector('.caret') || li;
+                        var html = labelElem.innerHTML;
+                        var regex = new RegExp(filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                        labelElem.innerHTML = html.replace(regex, function(match) {
+                            return '<mark>' + match + '</mark>';
+                        });
+                    }
+                });
+
+                // Mostrar estadísticas de búsqueda
+                searchStats.innerHTML = `🔍 Búsqueda: "${filter}" - ${matchCount} resultados encontrados de ${totalItems} elementos`;
+                searchStats.classList.add('show');
+            }
+
+            function clearSearch() {
+                searchInput.value = '';
+                performSearch();
+            }
+
+            // Event listeners
+            searchInput.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                } else {
+                    performSearch();
+                }
+            });
+
+            // Funciones globales para los botones
+            window.performSearch = performSearch;
+            window.clearSearch = clearSearch;
+
+            // Expandir/colapsar todo
+            window.expandAll = function() {
+                var allNested = document.querySelectorAll('.nested');
+                allNested.forEach(function(ul) {
+                    ul.classList.add('active');
+                });
+                var allCarets = document.querySelectorAll('.caret');
+                allCarets.forEach(function(span) {
+                    span.classList.add('caret-down');
+                });
+            };
+
+            window.collapseAll = function() {
+                var allNested = document.querySelectorAll('.nested');
+                allNested.forEach(function(ul) {
+                    ul.classList.remove('active');
+                });
+                var allCarets = document.querySelectorAll('.caret');
+                allCarets.forEach(function(span) {
+                    span.classList.remove('caret-down');
+                });
+                // Mantener expandida solo la raíz
+                var rootCaret = document.querySelector('.tree > li > .caret');
+                if (rootCaret) {
+                    rootCaret.classList.add('caret-down');
+                    var rootNested = rootCaret.parentElement.querySelector('.nested');
+                    if (rootNested) rootNested.classList.add('active');
+                }
+            };
+
+            // Atajos de teclado
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey || e.metaKey) {
+                    switch(e.key) {
+                        case 'f':
+                            e.preventDefault();
+                            searchInput.focus();
+                            break;
+                        case 'e':
+                            e.preventDefault();
+                            expandAll();
+                            break;
+                        case 'c':
+                            e.preventDefault();
+                            collapseAll();
+                            break;
+                    }
+                }
+            });
+
+            // Auto-focus en el campo de búsqueda
+            searchInput.focus();
+        });
+    </script>
+</body>
+</html>

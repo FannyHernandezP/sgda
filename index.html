@@ -62,7 +62,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
                 radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
@@ -398,7 +398,7 @@
             transform: scale(1.1);
         }
 
-        .tree-caret.expanded {
+        .tree-caret.expanded i {
             transform: rotate(90deg);
         }
 
@@ -503,7 +503,7 @@
     <div class="app-container">
         <!-- Header Moderno -->
         <header class="header">
-            <div class="header-icon">🌳</div>
+            <div class="header-icon"><i class="fas fa-sitemap"></i></div>
             <h1>SGDEA</h1>
             <p>Sistema de Gestión Documental Electrónica de Archivo - Árbol de Configuración</p>
         </header>
@@ -514,23 +514,23 @@
             <section class="search-section">
                 <div class="search-container">
                     <div class="search-input-wrapper">
-                        <i class="fas fa-search search-icon"></i>
+                        <i class="fas fa-magnifying-glass search-icon"></i>
                         <input type="text" id="searchInput" class="search-input" placeholder="Buscar módulos, componentes o funcionalidades...">
                     </div>
                     <button class="search-btn" onclick="performSearch()">
-                        <i class="fas fa-search"></i>
+                        <i class="fas fa-magnifying-glass"></i>
                         Buscar
                     </button>
                     <button class="clear-btn" onclick="clearSearch()">
-                        <i class="fas fa-times"></i>
+                        <i class="fas fa-xmark"></i>
                         Limpiar
                     </button>
                     <button class="expand-btn" onclick="expandAll()">
-                        <i class="fas fa-expand-arrows-alt"></i>
+                        <i class="fas fa-arrows-down-to-line"></i>
                         Expandir
                     </button>
                     <button class="collapse-btn" onclick="collapseAll()">
-                        <i class="fas fa-compress-arrows-alt"></i>
+                        <i class="fas fa-arrows-up-to-line"></i>
                         Colapsar
                     </button>
                 </div>
@@ -542,132 +542,132 @@
                 <ul class="tree">
                     <li>
                         <div class="tree-node expandable">
-                            <div class="tree-caret expanded" onclick="toggleNode(this)">▶</div>
-                            <div class="tree-icon">🏛️</div>
+                            <div class="tree-caret expanded" onclick="toggleNode(this)"><i class="fas fa-chevron-right"></i></div>
+                            <div class="tree-icon"><i class="fas fa-building-columns"></i></div>
                             <div class="tree-text">SGDEA - Sistema de Gestión Documental Electrónica de Archivo</div>
                         </div>
                         <ul class="nested active">
                             <li>
                                 <div class="tree-node expandable">
-                                    <div class="tree-caret" onclick="toggleNode(this)">▶</div>
-                                    <div class="tree-icon">⚙️</div>
+                                    <div class="tree-caret" onclick="toggleNode(this)"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="tree-icon"><i class="fas fa-cogs"></i></div>
                                     <div class="tree-text">SGDEA_PARAM_TRV - Parametrización Transversal</div>
                                 </div>
                                 <ul class="nested">
                                     <li>
                                         <div class="tree-node expandable">
-                                            <div class="tree-caret" onclick="toggleNode(this)">▶</div>
-                                            <div class="tree-icon">🔢</div>
+                                            <div class="tree-caret" onclick="toggleNode(this)"><i class="fas fa-chevron-right"></i></div>
+                                            <div class="tree-icon"><i class="fas fa-hashtag"></i></div>
                                             <div class="tree-text">SGDEA_NUM - Numeración de Radicados</div>
                                         </div>
                                         <ul class="nested">
-                                            <li><div class="tree-node leaf"><div class="tree-icon">📥</div><div class="tree-text">SGDEA_NUM_ENT - Radicados de Entrada</div></div></li>
-                                            <li><div class="tree-node leaf"><div class="tree-icon">📤</div><div class="tree-text">SGDEA_NUM_SAL - Radicados de Salida</div></div></li>
-                                            <li><div class="tree-node leaf"><div class="tree-icon">📋</div><div class="tree-text">SGDEA_NUM_INT - Radicados Internos</div></div></li>
-                                            <li><div class="tree-node leaf"><div class="tree-icon">📜</div><div class="tree-text">SGDEA_NUM_RES - Actos Administrativos (Resoluciones)</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-inbox"></i></div><div class="tree-text">SGDEA_NUM_ENT - Radicados de Entrada</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-paper-plane"></i></div><div class="tree-text">SGDEA_NUM_SAL - Radicados de Salida</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-file-alt"></i></div><div class="tree-text">SGDEA_NUM_INT - Radicados Internos</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-gavel"></i></div><div class="tree-text">SGDEA_NUM_RES - Actos Administrativos (Resoluciones)</div></div></li>
                                         </ul>
                                     </li>
                                     <li>
                                         <div class="tree-node expandable">
-                                            <div class="tree-caret" onclick="toggleNode(this)">▶</div>
-                                            <div class="tree-icon">⏰</div>
+                                            <div class="tree-caret" onclick="toggleNode(this)"><i class="fas fa-chevron-right"></i></div>
+                                            <div class="tree-icon"><i class="fas fa-clock"></i></div>
                                             <div class="tree-text">SGDEA_TRESP - Tiempos de Respuesta Normativos</div>
                                         </div>
                                         <ul class="nested">
-                                            <li><div class="tree-node leaf"><div class="tree-icon">📅</div><div class="tree-text">SGDEA_TRESP_L142 - Plazos Ley 142</div></div></li>
-                                            <li><div class="tree-node leaf"><div class="tree-icon">📅</div><div class="tree-text">SGDEA_TRESP_L1755 - Plazos Ley 1755</div></div></li>
-                                            <li><div class="tree-node leaf"><div class="tree-icon">📊</div><div class="tree-text">SGDEA_TRESP_VIG - Vigencias y Cómputo de Términos</div></div></li>
-                                            <li><div class="tree-node leaf"><div class="tree-icon">🚨</div><div class="tree-text">SGDEA_TRESP_ALERT - Alertas por Vencimiento de Términos</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-calendar-days"></i></div><div class="tree-text">SGDEA_TRESP_L142 - Plazos Ley 142</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-calendar-check"></i></div><div class="tree-text">SGDEA_TRESP_L1755 - Plazos Ley 1755</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-chart-line"></i></div><div class="tree-text">SGDEA_TRESP_VIG - Vigencias y Cómputo de Términos</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-bell"></i></div><div class="tree-text">SGDEA_TRESP_ALERT - Alertas por Vencimiento de Términos</div></div></li>
                                         </ul>
                                     </li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">🌐</div><div class="tree-text">SGDEA_PARAM_GLOBAL - Parámetros Globales del Sistema</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">📊</div><div class="tree-text">SGDEA_META - Configuración de Metadatos</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">🗂️</div><div class="tree-text">SGDEA_CLASS - Clasificación Documental (Cuadro de Clasificación)</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">📚</div><div class="tree-text">SGDEA_TRD - Retención Documental (TRD y TVD)</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">📁</div><div class="tree-text">SGDEA_EXP_CONF - Configuración de Expedientes</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">🏢</div><div class="tree-text">SGDEA_ORG - Estructura Orgánica (Dependencias)</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">👥</div><div class="tree-text">SGDEA_USR - Administración de Usuarios y Grupos</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">🔐</div><div class="tree-text">SGDEA_ROL - Administración de Roles y Permisos</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-globe"></i></div><div class="tree-text">SGDEA_PARAM_GLOBAL - Parámetros Globales del Sistema</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-database"></i></div><div class="tree-text">SGDEA_META - Configuración de Metadatos</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-folder-tree"></i></div><div class="tree-text">SGDEA_CLASS - Clasificación Documental (Cuadro de Clasificación)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-archive"></i></div><div class="tree-text">SGDEA_TRD - Retención Documental (TRD y TVD)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-folder-open"></i></div><div class="tree-text">SGDEA_EXP_CONF - Configuración de Expedientes</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-building"></i></div><div class="tree-text">SGDEA_ORG - Estructura Orgánica (Dependencias)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-users"></i></div><div class="tree-text">SGDEA_USR - Administración de Usuarios y Grupos</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-user-shield"></i></div><div class="tree-text">SGDEA_ROL - Administración de Roles y Permisos</div></div></li>
                                 </ul>
                             </li>
                             <li>
                                 <div class="tree-node expandable">
-                                    <div class="tree-caret" onclick="toggleNode(this)">▶</div>
-                                    <div class="tree-icon">📄</div>
+                                    <div class="tree-caret" onclick="toggleNode(this)"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="tree-icon"><i class="fas fa-file-lines"></i></div>
                                     <div class="tree-text">SGDEA_GEST_DOC - Gestión Documental</div>
                                 </div>
                                 <ul class="nested">
                                     <li>
                                         <div class="tree-node expandable">
-                                            <div class="tree-caret" onclick="toggleNode(this)">▶</div>
-                                            <div class="tree-icon">📬</div>
+                                            <div class="tree-caret" onclick="toggleNode(this)"><i class="fas fa-chevron-right"></i></div>
+                                            <div class="tree-icon"><i class="fas fa-envelope-open"></i></div>
                                             <div class="tree-text">SGDEA_RAD - Radicación y Correspondencia</div>
                                         </div>
                                         <ul class="nested">
-                                            <li><div class="tree-node leaf"><div class="tree-icon">📥</div><div class="tree-text">SGDEA_RAD_ENT - Radicación de Documentos de Entrada</div></div></li>
-                                            <li><div class="tree-node leaf"><div class="tree-icon">📤</div><div class="tree-text">SGDEA_RAD_SAL - Radicación de Documentos de Salida</div></div></li>
-                                            <li><div class="tree-node leaf"><div class="tree-icon">📋</div><div class="tree-text">SGDEA_RAD_INT - Radicación de Documentos Internos</div></div></li>
-                                            <li><div class="tree-node leaf"><div class="tree-icon">📜</div><div class="tree-text">SGDEA_RAD_RES - Emisión de Actos Administrativos (Resoluciones)</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-download"></i></div><div class="tree-text">SGDEA_RAD_ENT - Radicación de Documentos de Entrada</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-upload"></i></div><div class="tree-text">SGDEA_RAD_SAL - Radicación de Documentos de Salida</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-file-circle-plus"></i></div><div class="tree-text">SGDEA_RAD_INT - Radicación de Documentos Internos</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-gavel"></i></div><div class="tree-text">SGDEA_RAD_RES - Emisión de Actos Administrativos (Resoluciones)</div></div></li>
                                         </ul>
                                     </li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">🔄</div><div class="tree-text">SGDEA_TRAMITE - Gestión y Trámite Interno de Documentos</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">📁</div><div class="tree-text">SGDEA_EXP - Gestión de Expedientes (Carpetas)</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">📝</div><div class="tree-text">SGDEA_VERS - Control de Versiones de Documentos</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">✅</div><div class="tree-text">SGDEA_VALID - Validaciones y Reglas de Negocio</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">🔄</div><div class="tree-text">SGDEA_STATE - Estados y Ciclo de Vida del Documento</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">👥</div><div class="tree-text">SGDEA_DUAL - Control Dual (Aprobación Dual)</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">📋</div><div class="tree-text">SGDEA_PLANTILLAS - Plantillas y Generación Documental</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-route"></i></div><div class="tree-text">SGDEA_TRAMITE - Gestión y Trámite Interno de Documentos</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-folder-plus"></i></div><div class="tree-text">SGDEA_EXP - Gestión de Expedientes (Carpetas)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-code-branch"></i></div><div class="tree-text">SGDEA_VERS - Control de Versiones de Documentos</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-check-circle"></i></div><div class="tree-text">SGDEA_VALID - Validaciones y Reglas de Negocio</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-sync"></i></div><div class="tree-text">SGDEA_STATE - Estados y Ciclo de Vida del Documento</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-user-check"></i></div><div class="tree-text">SGDEA_DUAL - Control Dual (Aprobación Dual)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-clipboard-list"></i></div><div class="tree-text">SGDEA_PLANTILLAS - Plantillas y Generación Documental</div></div></li>
                                     <li>
                                         <div class="tree-node expandable">
-                                            <div class="tree-caret" onclick="toggleNode(this)">▶</div>
-                                            <div class="tree-icon">🗃️</div>
+                                            <div class="tree-caret" onclick="toggleNode(this)"><i class="fas fa-chevron-right"></i></div>
+                                            <div class="tree-icon"><i class="fas fa-box-archive"></i></div>
                                             <div class="tree-text">SGDEA_ARCH_FIS - Administración de Archivo Físico</div>
                                         </div>
                                         <ul class="nested">
-                                            <li><div class="tree-node leaf"><div class="tree-icon">📍</div><div class="tree-text">SGDEA_ARCH_LOC - Ubicación y Almacenamiento Físico</div></div></li>
-                                            <li><div class="tree-node leaf"><div class="tree-icon">📖</div><div class="tree-text">SGDEA_PRESTAMOS - Préstamos Documentales</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-map-marker-alt"></i></div><div class="tree-text">SGDEA_ARCH_LOC - Ubicación y Almacenamiento Físico</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-book-open"></i></div><div class="tree-text">SGDEA_PRESTAMOS - Préstamos Documentales</div></div></li>
                                         </ul>
                                     </li>
                                 </ul>
                             </li>
                             <li>
                                 <div class="tree-node expandable">
-                                    <div class="tree-caret" onclick="toggleNode(this)">▶</div>
-                                    <div class="tree-icon">🔗</div>
+                                    <div class="tree-caret" onclick="toggleNode(this)"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="tree-icon"><i class="fas fa-link"></i></div>
                                     <div class="tree-text">SGDEA_INTEROP - Interoperabilidad</div>
                                 </div>
                                 <ul class="nested">
-                                    <li><div class="tree-node leaf"><div class="tree-icon">📮</div><div class="tree-text">SGDEA_SIPOST - Integración con SIPOST (Operador 4-72)</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">✉️</div><div class="tree-text">SGDEA_CERTIMAIL - Integración con Certimail (Operador 4-72)</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">🌐</div><div class="tree-text">SGDEA_PQRS - Integración con Portal PQRS (Sede Electrónica)</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">🔌</div><div class="tree-text">SGDEA_WEB_SERV - Servicios Web y API (Intercambio de Datos)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-mail-bulk"></i></div><div class="tree-text">SGDEA_SIPOST - Integración con SIPOST (Operador 4-72)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-envelope"></i></div><div class="tree-text">SGDEA_CERTIMAIL - Integración con Certimail (Operador 4-72)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-globe-americas"></i></div><div class="tree-text">SGDEA_PQRS - Integración con Portal PQRS (Sede Electrónica)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-plug"></i></div><div class="tree-text">SGDEA_WEB_SERV - Servicios Web y API (Intercambio de Datos)</div></div></li>
                                 </ul>
                             </li>
                             <li>
                                 <div class="tree-node expandable">
-                                    <div class="tree-caret" onclick="toggleNode(this)">▶</div>
-                                    <div class="tree-icon">🛠️</div>
+                                    <div class="tree-caret" onclick="toggleNode(this)"><i class="fas fa-chevron-right"></i></div>
+                                    <div class="tree-icon"><i class="fas fa-tools"></i></div>
                                     <div class="tree-text">SGDEA_SERV_TRANS - Servicios Transversales</div>
                                 </div>
                                 <ul class="nested">
-                                    <li><div class="tree-node leaf"><div class="tree-icon">🔍</div><div class="tree-text">SGDEA_BUSQUEDA - Búsqueda de Documentos</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">📊</div><div class="tree-text">SGDEA_REPORT - Reportes e Indicadores</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">🔍</div><div class="tree-text">SGDEA_CUMPL - Cumplimiento Normativo y Auditoría</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-search"></i></div><div class="tree-text">SGDEA_BUSQUEDA - Búsqueda de Documentos</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-chart-bar"></i></div><div class="tree-text">SGDEA_REPORT - Reportes e Indicadores</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-clipboard-check"></i></div><div class="tree-text">SGDEA_CUMPL - Cumplimiento Normativo y Auditoría</div></div></li>
                                     <li>
                                         <div class="tree-node expandable">
-                                            <div class="tree-caret" onclick="toggleNode(this)">▶</div>
-                                            <div class="tree-icon">💾</div>
+                                            <div class="tree-caret" onclick="toggleNode(this)"><i class="fas fa-chevron-right"></i></div>
+                                            <div class="tree-icon"><i class="fas fa-server"></i></div>
                                             <div class="tree-text">SGDEA_PRESERV - Preservación Digital</div>
                                         </div>
                                         <ul class="nested">
-                                            <li><div class="tree-node leaf"><div class="tree-icon">📄</div><div class="tree-text">SGDEA_PRESERV_PDF - Almacenamiento en formato PDF/A</div></div></li>
-                                            <li><div class="tree-node leaf"><div class="tree-icon">🔒</div><div class="tree-text">SGDEA_CUSTODIA - Cadena de Custodia Digital</div></div></li>
-                                            <li><div class="tree-node leaf"><div class="tree-icon">📋</div><div class="tree-text">SGDEA_COPIAS - Copias y Reproducciones Auténticas</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-file-pdf"></i></div><div class="tree-text">SGDEA_PRESERV_PDF - Almacenamiento en formato PDF/A</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-lock"></i></div><div class="tree-text">SGDEA_CUSTODIA - Cadena de Custodia Digital</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-copy"></i></div><div class="tree-text">SGDEA_COPIAS - Copias y Reproducciones Auténticas</div></div></li>
                                         </ul>
                                     </li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">✍️</div><div class="tree-text">SGDEA_FIRMA_ELECT - Firma Electrónica</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">🔐</div><div class="tree-text">SGDEA_FIRMA_DIG - Firma Digital</div></div></li>
-                                    <li><div class="tree-node leaf"><div class="tree-icon">📤📥</div><div class="tree-text">SGDEA_IMP_EXP - Exportación e Importación de Datos</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-signature"></i></div><div class="tree-text">SGDEA_FIRMA_ELECT - Firma Electrónica</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-key"></i></div><div class="tree-text">SGDEA_FIRMA_DIG - Firma Digital</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon"><i class="fas fa-exchange-alt"></i></div><div class="tree-text">SGDEA_IMP_EXP - Exportación e Importación de Datos</div></div></li>
                                 </ul>
                             </li>
                         </ul>
@@ -694,15 +694,15 @@
                 const parentLi = caret.closest('li');
                 const nestedUl = parentLi.querySelector('.nested');
                 const isExpanded = nestedUl.classList.contains('active');
-                
+
                 if (isExpanded) {
                     nestedUl.classList.remove('active');
                     caret.classList.remove('expanded');
-                    caret.textContent = '▶';
+                    caret.innerHTML = '<i class="fas fa-chevron-right"></i>';
                 } else {
                     nestedUl.classList.add('active');
                     caret.classList.add('expanded');
-                    caret.textContent = '▼';
+                    caret.innerHTML = '<i class="fas fa-chevron-down"></i>';
                 }
             }
 
@@ -727,26 +727,26 @@
                     allNodes.forEach(node => {
                         node.style.display = '';
                     });
-                    
+
                     // Colapsar todo excepto la raíz
                     const allNested = document.querySelectorAll('.nested');
                     allNested.forEach(ul => ul.classList.remove('active'));
-                    
+
                     const allCarets = document.querySelectorAll('.tree-caret');
                     allCarets.forEach(caret => {
                         caret.classList.remove('expanded');
-                        caret.textContent = '▶';
+                        caret.innerHTML = '<i class="fas fa-chevron-right"></i>';
                     });
-                    
+
                     // Expandir solo la raíz
                     const rootCaret = document.querySelector('.tree > li .tree-caret');
                     if (rootCaret) {
                         rootCaret.classList.add('expanded');
-                        rootCaret.textContent = '▼';
+                        rootCaret.innerHTML = '<i class="fas fa-chevron-down"></i>';
                         const rootNested = rootCaret.closest('li').querySelector('.nested');
                         if (rootNested) rootNested.classList.add('active');
                     }
-                    
+
                     searchStats.classList.remove('show');
                     return;
                 }
@@ -754,17 +754,17 @@
                 // Expandir todo para búsqueda
                 const allNested = document.querySelectorAll('.nested');
                 allNested.forEach(ul => ul.classList.add('active'));
-                
+
                 const allCarets = document.querySelectorAll('.tree-caret');
                 allCarets.forEach(caret => {
                     caret.classList.add('expanded');
-                    caret.textContent = '▼';
+                    caret.innerHTML = '<i class="fas fa-chevron-down"></i>';
                 });
 
                 // Filtrar elementos
                 const allNodes = document.querySelectorAll('.tree-node');
                 totalItems = allNodes.length;
-                
+
                 allNodes.forEach(node => {
                     const text = node.textContent;
                     if (normalizeText(text).includes(filterNorm)) {
@@ -804,7 +804,7 @@
 
                 // Mostrar estadísticas
                 searchStats.innerHTML = `
-                    <i class="fas fa-search"></i>
+                    <i class="fas fa-magnifying-glass"></i>
                     Búsqueda: "${filter}" - ${matchCount} resultados encontrados de ${totalItems} elementos
                 `;
                 searchStats.classList.add('show');
@@ -821,11 +821,11 @@
             function expandAll() {
                 const allNested = document.querySelectorAll('.nested');
                 allNested.forEach(ul => ul.classList.add('active'));
-                
+
                 const allCarets = document.querySelectorAll('.tree-caret');
                 allCarets.forEach(caret => {
                     caret.classList.add('expanded');
-                    caret.textContent = '▼';
+                    caret.innerHTML = '<i class="fas fa-chevron-down"></i>';
                 });
             }
 
@@ -833,18 +833,18 @@
             function collapseAll() {
                 const allNested = document.querySelectorAll('.nested');
                 allNested.forEach(ul => ul.classList.remove('active'));
-                
+
                 const allCarets = document.querySelectorAll('.tree-caret');
                 allCarets.forEach(caret => {
                     caret.classList.remove('expanded');
-                    caret.textContent = '▶';
+                    caret.innerHTML = '<i class="fas fa-chevron-right"></i>';
                 });
-                
+
                 // Expandir solo la raíz
                 const rootCaret = document.querySelector('.tree > li .tree-caret');
                 if (rootCaret) {
                     rootCaret.classList.add('expanded');
-                    rootCaret.textContent = '▼';
+                    rootCaret.innerHTML = '<i class="fas fa-chevron-down"></i>';
                     const rootNested = rootCaret.closest('li').querySelector('.nested');
                     if (rootNested) rootNested.classList.add('active');
                 }

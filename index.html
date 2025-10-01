@@ -4,7 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SGDEA - Sistema de Gestión Documental Electrónica de Archivo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --background-primary: #fafbfc;
+            --background-secondary: #ffffff;
+            --background-tertiary: #f8fafc;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border-color: #e2e8f0;
+            --border-light: #f1f5f9;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --transition-fast: 150ms ease;
+            --transition-normal: 250ms ease;
+            --transition-slow: 350ms ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,190 +45,230 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
             min-height: 100vh;
-            padding: 20px;
-            color: #333;
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .container {
-            max-width: 1200px;
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .app-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            max-width: 1400px;
             margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        /* Header Moderno */
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-2xl);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
             overflow: hidden;
         }
 
-        .header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            z-index: -1;
         }
 
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: 300;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
         }
 
         .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+
+        /* Panel Principal */
+        .main-panel {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-2xl);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Barra de Búsqueda Moderna */
+        .search-section {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--background-tertiary) 0%, var(--background-secondary) 100%);
+            border-bottom: 1px solid var(--border-light);
+            position: relative;
         }
 
         .search-container {
-            padding: 30px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        .search-box {
             display: flex;
-            gap: 15px;
+            gap: 1rem;
             align-items: center;
             flex-wrap: wrap;
+            position: relative;
+        }
+
+        .search-input-wrapper {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
         }
 
         .search-input {
-            flex: 1;
-            min-width: 300px;
-            padding: 15px 20px;
-            border: 2px solid #e9ecef;
-            border-radius: 25px;
-            font-size: 16px;
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            font-size: 1rem;
+            font-weight: 500;
+            background: var(--background-secondary);
+            color: var(--text-primary);
             outline: none;
-            transition: all 0.3s ease;
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow-sm);
         }
 
         .search-input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1), var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.125rem;
+            pointer-events: none;
+        }
+
+        .search-btn, .clear-btn, .expand-btn, .collapse-btn {
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-xl);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
         }
 
         .search-btn {
-            padding: 15px 25px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
             color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
         }
 
         .search-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: var(--shadow-lg);
         }
 
         .clear-btn {
-            padding: 15px 25px;
-            background: #6c757d;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            background: var(--background-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
         }
 
         .clear-btn:hover {
-            background: #5a6268;
+            background: var(--background-tertiary);
+            transform: translateY(-1px);
+        }
+
+        .expand-btn, .collapse-btn {
+            background: linear-gradient(135deg, var(--accent-color) 0%, #0891b2 100%);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .expand-btn:hover, .collapse-btn:hover {
             transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
-        .tree-container {
-            padding: 30px;
-            max-height: 70vh;
-            overflow-y: auto;
-        }
-
-        /* Estilos del árbol mejorados */
-        ul.tree, ul.tree ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        ul.tree ul {
-            margin-left: 25px;
-            border-left: 2px solid #e9ecef;
-            padding-left: 20px;
-        }
-
-        ul.tree li {
-            margin: 8px 0;
-            position: relative;
-        }
-
-        ul.tree li::before {
-            content: '';
-            position: absolute;
-            left: -22px;
-            top: 15px;
-            width: 20px;
-            height: 2px;
-            background: #e9ecef;
-        }
-
-        ul.tree li:last-child::after {
-            content: '';
-            position: absolute;
-            left: -22px;
-            top: 15px;
-            bottom: 0;
-            width: 2px;
-            background: white;
-        }
-
-        .caret {
-            cursor: pointer;
-            user-select: none;
-            display: inline-flex;
-            align-items: center;
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-
-        .caret:hover {
-            background: #f8f9fa;
-            transform: translateX(5px);
-        }
-
-        .caret::before {
-            content: "▶";
-            color: #667eea;
-            display: inline-block;
-            margin-right: 8px;
-            transition: transform 0.3s ease;
-            font-size: 12px;
-        }
-
-        .caret-down::before {
-            transform: rotate(90deg);
-        }
-
-        .nested {
+        /* Estadísticas de Búsqueda */
+        .search-stats {
+            margin-top: 1rem;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
+            border: 1px solid #bfdbfe;
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            color: #1e40af;
+            font-weight: 500;
             display: none;
-            animation: slideDown 0.3s ease;
+            animation: slideInUp 0.3s ease;
         }
 
-        .active {
+        .search-stats.show {
             display: block;
         }
 
-        @keyframes slideDown {
+        @keyframes slideInUp {
             from {
                 opacity: 0;
-                transform: translateY(-10px);
+                transform: translateY(10px);
             }
             to {
                 opacity: 1;
@@ -203,251 +276,474 @@
             }
         }
 
-        /* Elementos sin hijos */
-        .tree li:not(:has(.caret)) {
-            padding: 8px 12px;
-            margin: 4px 0;
-            background: #f8f9fa;
-            border-radius: 6px;
-            border-left: 4px solid #28a745;
-            transition: all 0.3s ease;
+        /* Contenedor del Árbol */
+        .tree-section {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            background: var(--background-primary);
         }
 
-        .tree li:not(:has(.caret)):hover {
-            background: #e9ecef;
-            transform: translateX(5px);
+        /* Estilos del Árbol Modernos */
+        .tree {
+            list-style: none;
+            margin: 0;
+            padding: 0;
         }
 
-        /* Resaltado para resultados de búsqueda */
-        mark {
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-weight: bold;
-            box-shadow: 0 1px 3px rgba(255, 215, 0, 0.3);
+        .tree ul {
+            list-style: none;
+            margin: 0;
+            padding-left: 2rem;
+            position: relative;
         }
 
-        /* Estadísticas de búsqueda */
-        .search-stats {
-            margin-top: 15px;
-            padding: 15px;
-            background: #e3f2fd;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #1976d2;
+        .tree ul::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--border-color) 0%, transparent 100%);
+        }
+
+        .tree li {
+            margin: 0.5rem 0;
+            position: relative;
+        }
+
+        .tree li::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 1.5rem;
+            width: 1.5rem;
+            height: 2px;
+            background: var(--border-color);
+        }
+
+        .tree li:last-child::after {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 1.5rem;
+            bottom: 0;
+            width: 2px;
+            background: var(--background-primary);
+        }
+
+        /* Nodos del Árbol */
+        .tree-node {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-normal);
+            cursor: pointer;
+            position: relative;
+            background: var(--background-secondary);
+            border: 1px solid var(--border-light);
+            margin-bottom: 0.25rem;
+        }
+
+        .tree-node:hover {
+            background: var(--background-tertiary);
+            border-color: var(--border-color);
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .tree-node.expandable {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .tree-node.leaf {
+            font-weight: 500;
+            color: var(--text-secondary);
+            border-left: 4px solid var(--success-color);
+        }
+
+        .tree-node.leaf:hover {
+            border-left-color: var(--primary-color);
+        }
+
+        /* Iconos y Flechas */
+        .tree-icon {
+            font-size: 1.125rem;
+            margin-right: 0.75rem;
+            width: 1.5rem;
+            text-align: center;
+            transition: all var(--transition-normal);
+        }
+
+        .tree-caret {
+            margin-right: 0.75rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            background: var(--primary-color);
+            color: white;
+            font-size: 0.75rem;
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .tree-caret:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        .tree-caret.expanded {
+            transform: rotate(90deg);
+        }
+
+        .tree-text {
+            flex: 1;
+            font-size: 0.875rem;
+            line-height: 1.4;
+        }
+
+        /* Resaltado de Búsqueda */
+        .search-highlight {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 0.125rem 0.25rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            color: #92400e;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Animaciones */
+        .tree ul.nested {
             display: none;
+            animation: slideDown var(--transition-slow) ease;
         }
 
-        .search-stats.show {
+        .tree ul.nested.active {
             display: block;
-            animation: fadeIn 0.3s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                max-height: 1000px;
+            }
         }
 
-        /* Responsive */
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                border-radius: 10px;
+            .app-container {
+                padding: 0.5rem;
             }
-            
-            .header h1 {
-                font-size: 2em;
+
+            .header {
+                padding: 1.5rem;
+                margin-bottom: 1rem;
             }
-            
-            .search-box {
+
+            .search-section {
+                padding: 1.5rem;
+            }
+
+            .search-container {
                 flex-direction: column;
+                align-items: stretch;
             }
-            
-            .search-input {
+
+            .search-input-wrapper {
                 min-width: 100%;
             }
-            
-            .tree-container {
-                padding: 20px;
+
+            .tree-section {
+                padding: 1.5rem;
             }
-            
-            ul.tree ul {
-                margin-left: 15px;
-                padding-left: 15px;
+
+            .tree ul {
+                padding-left: 1.5rem;
             }
+
+            .tree li::before {
+                left: -1.5rem;
+                width: 1rem;
+            }
+        }
+
+        /* Scrollbar Personalizado */
+        .tree-section::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .tree-section::-webkit-scrollbar-track {
+            background: var(--background-tertiary);
+            border-radius: var(--radius-lg);
+        }
+
+        .tree-section::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: var(--radius-lg);
+        }
+
+        .tree-section::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🌳 SGDEA</h1>
+    <div class="app-container">
+        <!-- Header Moderno -->
+        <header class="header">
+            <div class="header-icon">🌳</div>
+            <h1>SGDEA</h1>
             <p>Sistema de Gestión Documental Electrónica de Archivo - Árbol de Configuración</p>
-        </div>
+        </header>
 
-        <div class="search-container">
-            <div class="search-box">
-                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar módulos, componentes o funcionalidades...">
-                <button class="search-btn" onclick="performSearch()">Buscar</button>
-                <button class="clear-btn" onclick="clearSearch()">Limpiar</button>
-            </div>
-            <div id="searchStats" class="search-stats"></div>
-        </div>
+        <!-- Panel Principal -->
+        <main class="main-panel">
+            <!-- Sección de Búsqueda -->
+            <section class="search-section">
+                <div class="search-container">
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="searchInput" class="search-input" placeholder="Buscar módulos, componentes o funcionalidades...">
+                    </div>
+                    <button class="search-btn" onclick="performSearch()">
+                        <i class="fas fa-search"></i>
+                        Buscar
+                    </button>
+                    <button class="clear-btn" onclick="clearSearch()">
+                        <i class="fas fa-times"></i>
+                        Limpiar
+                    </button>
+                    <button class="expand-btn" onclick="expandAll()">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                        Expandir
+                    </button>
+                    <button class="collapse-btn" onclick="collapseAll()">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                        Colapsar
+                    </button>
+                </div>
+                <div id="searchStats" class="search-stats"></div>
+            </section>
 
-        <div class="tree-container">
-            <ul class="tree">
-                <li>
-                    <span class="caret caret-down">🏛️ SGDEA - Sistema de Gestión Documental Electrónica de Archivo</span>
-                    <ul class="nested active">
-                        <li>
-                            <span class="caret">⚙️ SGDEA_PARAM_TRV - Parametrización Transversal</span>
-                            <ul class="nested">
-                                <li>
-                                    <span class="caret">🔢 SGDEA_NUM - Numeración de Radicados</span>
-                                    <ul class="nested">
-                                        <li>📥 SGDEA_NUM_ENT - Radicados de Entrada</li>
-                                        <li>📤 SGDEA_NUM_SAL - Radicados de Salida</li>
-                                        <li>📋 SGDEA_NUM_INT - Radicados Internos</li>
-                                        <li>📜 SGDEA_NUM_RES - Actos Administrativos (Resoluciones)</li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <span class="caret">⏰ SGDEA_TRESP - Tiempos de Respuesta Normativos</span>
-                                    <ul class="nested">
-                                        <li>📅 SGDEA_TRESP_L142 - Plazos Ley 142</li>
-                                        <li>📅 SGDEA_TRESP_L1755 - Plazos Ley 1755</li>
-                                        <li>📊 SGDEA_TRESP_VIG - Vigencias y Cómputo de Términos</li>
-                                        <li>🚨 SGDEA_TRESP_ALERT - Alertas por Vencimiento de Términos</li>
-                                    </ul>
-                                </li>
-                                <li>🌐 SGDEA_PARAM_GLOBAL - Parámetros Globales del Sistema</li>
-                                <li>📊 SGDEA_META - Configuración de Metadatos</li>
-                                <li>🗂️ SGDEA_CLASS - Clasificación Documental (Cuadro de Clasificación)</li>
-                                <li>📚 SGDEA_TRD - Retención Documental (TRD y TVD)</li>
-                                <li>📁 SGDEA_EXP_CONF - Configuración de Expedientes</li>
-                                <li>🏢 SGDEA_ORG - Estructura Orgánica (Dependencias)</li>
-                                <li>👥 SGDEA_USR - Administración de Usuarios y Grupos</li>
-                                <li>🔐 SGDEA_ROL - Administración de Roles y Permisos</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <span class="caret">📄 SGDEA_GEST_DOC - Gestión Documental</span>
-                            <ul class="nested">
-                                <li>
-                                    <span class="caret">📬 SGDEA_RAD - Radicación y Correspondencia</span>
-                                    <ul class="nested">
-                                        <li>📥 SGDEA_RAD_ENT - Radicación de Documentos de Entrada</li>
-                                        <li>📤 SGDEA_RAD_SAL - Radicación de Documentos de Salida</li>
-                                        <li>📋 SGDEA_RAD_INT - Radicación de Documentos Internos</li>
-                                        <li>📜 SGDEA_RAD_RES - Emisión de Actos Administrativos (Resoluciones)</li>
-                                    </ul>
-                                </li>
-                                <li>🔄 SGDEA_TRAMITE - Gestión y Trámite Interno de Documentos</li>
-                                <li>📁 SGDEA_EXP - Gestión de Expedientes (Carpetas)</li>
-                                <li>📝 SGDEA_VERS - Control de Versiones de Documentos</li>
-                                <li>✅ SGDEA_VALID - Validaciones y Reglas de Negocio</li>
-                                <li>🔄 SGDEA_STATE - Estados y Ciclo de Vida del Documento</li>
-                                <li>👥 SGDEA_DUAL - Control Dual (Aprobación Dual)</li>
-                                <li>📋 SGDEA_PLANTILLAS - Plantillas y Generación Documental</li>
-                                <li>
-                                    <span class="caret">🗃️ SGDEA_ARCH_FIS - Administración de Archivo Físico</span>
-                                    <ul class="nested">
-                                        <li>📍 SGDEA_ARCH_LOC - Ubicación y Almacenamiento Físico</li>
-                                        <li>📖 SGDEA_PRESTAMOS - Préstamos Documentales</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <span class="caret">🔗 SGDEA_INTEROP - Interoperabilidad</span>
-                            <ul class="nested">
-                                <li>📮 SGDEA_SIPOST - Integración con SIPOST (Operador 4-72)</li>
-                                <li>✉️ SGDEA_CERTIMAIL - Integración con Certimail (Operador 4-72)</li>
-                                <li>🌐 SGDEA_PQRS - Integración con Portal PQRS (Sede Electrónica)</li>
-                                <li>🔌 SGDEA_WEB_SERV - Servicios Web y API (Intercambio de Datos)</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <span class="caret">🛠️ SGDEA_SERV_TRANS - Servicios Transversales</span>
-                            <ul class="nested">
-                                <li>🔍 SGDEA_BUSQUEDA - Búsqueda de Documentos</li>
-                                <li>📊 SGDEA_REPORT - Reportes e Indicadores</li>
-                                <li>🔍 SGDEA_CUMPL - Cumplimiento Normativo y Auditoría</li>
-                                <li>
-                                    <span class="caret">💾 SGDEA_PRESERV - Preservación Digital</span>
-                                    <ul class="nested">
-                                        <li>📄 SGDEA_PRESERV_PDF - Almacenamiento en formato PDF/A</li>
-                                        <li>🔒 SGDEA_CUSTODIA - Cadena de Custodia Digital</li>
-                                        <li>📋 SGDEA_COPIAS - Copias y Reproducciones Auténticas</li>
-                                    </ul>
-                                </li>
-                                <li>✍️ SGDEA_FIRMA_ELECT - Firma Electrónica</li>
-                                <li>🔐 SGDEA_FIRMA_DIG - Firma Digital</li>
-                                <li>📤📥 SGDEA_IMP_EXP - Exportación e Importación de Datos</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+            <!-- Sección del Árbol -->
+            <section class="tree-section">
+                <ul class="tree">
+                    <li>
+                        <div class="tree-node expandable">
+                            <div class="tree-caret expanded" onclick="toggleNode(this)">▶</div>
+                            <div class="tree-icon">🏛️</div>
+                            <div class="tree-text">SGDEA - Sistema de Gestión Documental Electrónica de Archivo</div>
+                        </div>
+                        <ul class="nested active">
+                            <li>
+                                <div class="tree-node expandable">
+                                    <div class="tree-caret" onclick="toggleNode(this)">▶</div>
+                                    <div class="tree-icon">⚙️</div>
+                                    <div class="tree-text">SGDEA_PARAM_TRV - Parametrización Transversal</div>
+                                </div>
+                                <ul class="nested">
+                                    <li>
+                                        <div class="tree-node expandable">
+                                            <div class="tree-caret" onclick="toggleNode(this)">▶</div>
+                                            <div class="tree-icon">🔢</div>
+                                            <div class="tree-text">SGDEA_NUM - Numeración de Radicados</div>
+                                        </div>
+                                        <ul class="nested">
+                                            <li><div class="tree-node leaf"><div class="tree-icon">📥</div><div class="tree-text">SGDEA_NUM_ENT - Radicados de Entrada</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon">📤</div><div class="tree-text">SGDEA_NUM_SAL - Radicados de Salida</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon">📋</div><div class="tree-text">SGDEA_NUM_INT - Radicados Internos</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon">📜</div><div class="tree-text">SGDEA_NUM_RES - Actos Administrativos (Resoluciones)</div></div></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <div class="tree-node expandable">
+                                            <div class="tree-caret" onclick="toggleNode(this)">▶</div>
+                                            <div class="tree-icon">⏰</div>
+                                            <div class="tree-text">SGDEA_TRESP - Tiempos de Respuesta Normativos</div>
+                                        </div>
+                                        <ul class="nested">
+                                            <li><div class="tree-node leaf"><div class="tree-icon">📅</div><div class="tree-text">SGDEA_TRESP_L142 - Plazos Ley 142</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon">📅</div><div class="tree-text">SGDEA_TRESP_L1755 - Plazos Ley 1755</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon">📊</div><div class="tree-text">SGDEA_TRESP_VIG - Vigencias y Cómputo de Términos</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon">🚨</div><div class="tree-text">SGDEA_TRESP_ALERT - Alertas por Vencimiento de Términos</div></div></li>
+                                        </ul>
+                                    </li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">🌐</div><div class="tree-text">SGDEA_PARAM_GLOBAL - Parámetros Globales del Sistema</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">📊</div><div class="tree-text">SGDEA_META - Configuración de Metadatos</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">🗂️</div><div class="tree-text">SGDEA_CLASS - Clasificación Documental (Cuadro de Clasificación)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">📚</div><div class="tree-text">SGDEA_TRD - Retención Documental (TRD y TVD)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">📁</div><div class="tree-text">SGDEA_EXP_CONF - Configuración de Expedientes</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">🏢</div><div class="tree-text">SGDEA_ORG - Estructura Orgánica (Dependencias)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">👥</div><div class="tree-text">SGDEA_USR - Administración de Usuarios y Grupos</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">🔐</div><div class="tree-text">SGDEA_ROL - Administración de Roles y Permisos</div></div></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="tree-node expandable">
+                                    <div class="tree-caret" onclick="toggleNode(this)">▶</div>
+                                    <div class="tree-icon">📄</div>
+                                    <div class="tree-text">SGDEA_GEST_DOC - Gestión Documental</div>
+                                </div>
+                                <ul class="nested">
+                                    <li>
+                                        <div class="tree-node expandable">
+                                            <div class="tree-caret" onclick="toggleNode(this)">▶</div>
+                                            <div class="tree-icon">📬</div>
+                                            <div class="tree-text">SGDEA_RAD - Radicación y Correspondencia</div>
+                                        </div>
+                                        <ul class="nested">
+                                            <li><div class="tree-node leaf"><div class="tree-icon">📥</div><div class="tree-text">SGDEA_RAD_ENT - Radicación de Documentos de Entrada</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon">📤</div><div class="tree-text">SGDEA_RAD_SAL - Radicación de Documentos de Salida</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon">📋</div><div class="tree-text">SGDEA_RAD_INT - Radicación de Documentos Internos</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon">📜</div><div class="tree-text">SGDEA_RAD_RES - Emisión de Actos Administrativos (Resoluciones)</div></div></li>
+                                        </ul>
+                                    </li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">🔄</div><div class="tree-text">SGDEA_TRAMITE - Gestión y Trámite Interno de Documentos</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">📁</div><div class="tree-text">SGDEA_EXP - Gestión de Expedientes (Carpetas)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">📝</div><div class="tree-text">SGDEA_VERS - Control de Versiones de Documentos</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">✅</div><div class="tree-text">SGDEA_VALID - Validaciones y Reglas de Negocio</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">🔄</div><div class="tree-text">SGDEA_STATE - Estados y Ciclo de Vida del Documento</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">👥</div><div class="tree-text">SGDEA_DUAL - Control Dual (Aprobación Dual)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">📋</div><div class="tree-text">SGDEA_PLANTILLAS - Plantillas y Generación Documental</div></div></li>
+                                    <li>
+                                        <div class="tree-node expandable">
+                                            <div class="tree-caret" onclick="toggleNode(this)">▶</div>
+                                            <div class="tree-icon">🗃️</div>
+                                            <div class="tree-text">SGDEA_ARCH_FIS - Administración de Archivo Físico</div>
+                                        </div>
+                                        <ul class="nested">
+                                            <li><div class="tree-node leaf"><div class="tree-icon">📍</div><div class="tree-text">SGDEA_ARCH_LOC - Ubicación y Almacenamiento Físico</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon">📖</div><div class="tree-text">SGDEA_PRESTAMOS - Préstamos Documentales</div></div></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="tree-node expandable">
+                                    <div class="tree-caret" onclick="toggleNode(this)">▶</div>
+                                    <div class="tree-icon">🔗</div>
+                                    <div class="tree-text">SGDEA_INTEROP - Interoperabilidad</div>
+                                </div>
+                                <ul class="nested">
+                                    <li><div class="tree-node leaf"><div class="tree-icon">📮</div><div class="tree-text">SGDEA_SIPOST - Integración con SIPOST (Operador 4-72)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">✉️</div><div class="tree-text">SGDEA_CERTIMAIL - Integración con Certimail (Operador 4-72)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">🌐</div><div class="tree-text">SGDEA_PQRS - Integración con Portal PQRS (Sede Electrónica)</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">🔌</div><div class="tree-text">SGDEA_WEB_SERV - Servicios Web y API (Intercambio de Datos)</div></div></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="tree-node expandable">
+                                    <div class="tree-caret" onclick="toggleNode(this)">▶</div>
+                                    <div class="tree-icon">🛠️</div>
+                                    <div class="tree-text">SGDEA_SERV_TRANS - Servicios Transversales</div>
+                                </div>
+                                <ul class="nested">
+                                    <li><div class="tree-node leaf"><div class="tree-icon">🔍</div><div class="tree-text">SGDEA_BUSQUEDA - Búsqueda de Documentos</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">📊</div><div class="tree-text">SGDEA_REPORT - Reportes e Indicadores</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">🔍</div><div class="tree-text">SGDEA_CUMPL - Cumplimiento Normativo y Auditoría</div></div></li>
+                                    <li>
+                                        <div class="tree-node expandable">
+                                            <div class="tree-caret" onclick="toggleNode(this)">▶</div>
+                                            <div class="tree-icon">💾</div>
+                                            <div class="tree-text">SGDEA_PRESERV - Preservación Digital</div>
+                                        </div>
+                                        <ul class="nested">
+                                            <li><div class="tree-node leaf"><div class="tree-icon">📄</div><div class="tree-text">SGDEA_PRESERV_PDF - Almacenamiento en formato PDF/A</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon">🔒</div><div class="tree-text">SGDEA_CUSTODIA - Cadena de Custodia Digital</div></div></li>
+                                            <li><div class="tree-node leaf"><div class="tree-icon">📋</div><div class="tree-text">SGDEA_COPIAS - Copias y Reproducciones Auténticas</div></div></li>
+                                        </ul>
+                                    </li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">✍️</div><div class="tree-text">SGDEA_FIRMA_ELECT - Firma Electrónica</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">🔐</div><div class="tree-text">SGDEA_FIRMA_DIG - Firma Digital</div></div></li>
+                                    <li><div class="tree-node leaf"><div class="tree-icon">📤📥</div><div class="tree-text">SGDEA_IMP_EXP - Exportación e Importación de Datos</div></div></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </main>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Función para normalizar texto (remover acentos y mayúsculas) para búsqueda
+            // Variables globales
+            const searchInput = document.getElementById('searchInput');
+            const searchStats = document.getElementById('searchStats');
+            let searchTimeout;
+
+            // Función para normalizar texto para búsqueda
             function normalizeText(str) {
                 return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
             }
 
-            // Manejo de colapso/expansión de ramas del árbol
-            var toggler = document.getElementsByClassName("caret");
-            for (var i = 0; i < toggler.length; i++) {
-                toggler[i].addEventListener("click", function() {
-                    this.parentElement.querySelector(".nested").classList.toggle("active");
-                    this.classList.toggle("caret-down");
-                });
+            // Función para alternar nodos del árbol
+            function toggleNode(caret) {
+                const parentLi = caret.closest('li');
+                const nestedUl = parentLi.querySelector('.nested');
+                const isExpanded = nestedUl.classList.contains('active');
+                
+                if (isExpanded) {
+                    nestedUl.classList.remove('active');
+                    caret.classList.remove('expanded');
+                    caret.textContent = '▶';
+                } else {
+                    nestedUl.classList.add('active');
+                    caret.classList.add('expanded');
+                    caret.textContent = '▼';
+                }
             }
 
-            // Funcionalidad de filtrado/búsqueda en el árbol
-            var searchInput = document.getElementById('searchInput');
-            var searchStats = document.getElementById('searchStats');
-            
+            // Función de búsqueda mejorada
             function performSearch() {
-                var filter = searchInput.value.trim();
-                var filterNorm = normalizeText(filter);
-                var matchCount = 0;
-                var totalItems = 0;
+                const filter = searchInput.value.trim();
+                const filterNorm = normalizeText(filter);
+                let matchCount = 0;
+                let totalItems = 0;
 
-                // Eliminar resaltados previos
-                var marks = document.querySelectorAll('mark');
-                marks.forEach(function(mark) {
-                    var parent = mark.parentNode;
-                    parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                // Limpiar resaltados previos
+                const highlights = document.querySelectorAll('.search-highlight');
+                highlights.forEach(highlight => {
+                    const parent = highlight.parentNode;
+                    parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
                     parent.normalize();
                 });
 
                 if (!filter) {
-                    // Restaurar vista original si no hay filtro
-                    var allItems = document.querySelectorAll('.tree li');
-                    allItems.forEach(function(li) {
-                        li.style.display = '';
+                    // Restaurar vista original
+                    const allNodes = document.querySelectorAll('.tree-node');
+                    allNodes.forEach(node => {
+                        node.style.display = '';
                     });
                     
-                    // Colapsar todas las ramas excepto la raíz
-                    var allNested = document.querySelectorAll('.nested');
-                    allNested.forEach(function(ul) {
-                        ul.classList.remove('active');
-                    });
-                    var allCarets = document.querySelectorAll('.caret');
-                    allCarets.forEach(function(span) {
-                        span.classList.remove('caret-down');
+                    // Colapsar todo excepto la raíz
+                    const allNested = document.querySelectorAll('.nested');
+                    allNested.forEach(ul => ul.classList.remove('active'));
+                    
+                    const allCarets = document.querySelectorAll('.tree-caret');
+                    allCarets.forEach(caret => {
+                        caret.classList.remove('expanded');
+                        caret.textContent = '▶';
                     });
                     
-                    // Mantener expandida la raíz
-                    var rootCaret = document.querySelector('.tree > li > .caret');
+                    // Expandir solo la raíz
+                    const rootCaret = document.querySelector('.tree > li .tree-caret');
                     if (rootCaret) {
-                        rootCaret.classList.add('caret-down');
-                        var rootNested = rootCaret.parentElement.querySelector('.nested');
+                        rootCaret.classList.add('expanded');
+                        rootCaret.textContent = '▼';
+                        const rootNested = rootCaret.closest('li').querySelector('.nested');
                         if (rootNested) rootNested.classList.add('active');
                     }
                     
@@ -455,106 +751,125 @@
                     return;
                 }
 
-                // Expandir todas las ramas para evaluar todos los nodos
-                var nestedLists = document.querySelectorAll('.nested');
-                nestedLists.forEach(function(ul) {
-                    ul.classList.add('active');
-                });
-                var carets = document.querySelectorAll('.caret');
-                carets.forEach(function(span) {
-                    span.classList.add('caret-down');
+                // Expandir todo para búsqueda
+                const allNested = document.querySelectorAll('.nested');
+                allNested.forEach(ul => ul.classList.add('active'));
+                
+                const allCarets = document.querySelectorAll('.tree-caret');
+                allCarets.forEach(caret => {
+                    caret.classList.add('expanded');
+                    caret.textContent = '▼';
                 });
 
-                // Filtrar elementos según el texto
-                var listItems = document.querySelectorAll('.tree li');
-                totalItems = listItems.length;
+                // Filtrar elementos
+                const allNodes = document.querySelectorAll('.tree-node');
+                totalItems = allNodes.length;
                 
-                listItems.forEach(function(li) {
-                    var text = li.firstChild.textContent || li.textContent;
+                allNodes.forEach(node => {
+                    const text = node.textContent;
                     if (normalizeText(text).includes(filterNorm)) {
-                        li.style.display = '';
+                        node.style.display = '';
                         matchCount++;
                     } else {
-                        li.style.display = 'none';
+                        node.style.display = 'none';
                     }
                 });
 
-                // Asegurar que los ancestros de un elemento coincidente permanezcan visibles
-                listItems.forEach(function(li) {
-                    if (li.style.display === 'none') {
-                        var childItems = li.querySelectorAll('li');
-                        childItems.forEach(function(child) {
+                // Mostrar ancestros de elementos coincidentes
+                allNodes.forEach(node => {
+                    if (node.style.display === 'none') {
+                        const childNodes = node.parentElement.querySelectorAll('.tree-node');
+                        let hasVisibleChild = false;
+                        childNodes.forEach(child => {
                             if (child.style.display !== 'none') {
-                                li.style.display = '';
+                                hasVisibleChild = true;
                             }
                         });
+                        if (hasVisibleChild) {
+                            node.style.display = '';
+                        }
                     }
                 });
 
-                // Resaltar las coincidencias encontradas
-                listItems.forEach(function(li) {
-                    if (li.style.display !== 'none') {
-                        var labelElem = li.querySelector('.caret') || li;
-                        var html = labelElem.innerHTML;
-                        var regex = new RegExp(filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
-                        labelElem.innerHTML = html.replace(regex, function(match) {
-                            return '<mark>' + match + '</mark>';
-                        });
+                // Resaltar coincidencias
+                allNodes.forEach(node => {
+                    if (node.style.display !== 'none') {
+                        const text = node.textContent;
+                        const regex = new RegExp(filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                        if (regex.test(text)) {
+                            node.innerHTML = node.innerHTML.replace(regex, '<span class="search-highlight">$&</span>');
+                        }
                     }
                 });
 
-                // Mostrar estadísticas de búsqueda
-                searchStats.innerHTML = `🔍 Búsqueda: "${filter}" - ${matchCount} resultados encontrados de ${totalItems} elementos`;
+                // Mostrar estadísticas
+                searchStats.innerHTML = `
+                    <i class="fas fa-search"></i>
+                    Búsqueda: "${filter}" - ${matchCount} resultados encontrados de ${totalItems} elementos
+                `;
                 searchStats.classList.add('show');
             }
 
+            // Función para limpiar búsqueda
             function clearSearch() {
                 searchInput.value = '';
                 performSearch();
+                searchInput.focus();
+            }
+
+            // Función para expandir todo
+            function expandAll() {
+                const allNested = document.querySelectorAll('.nested');
+                allNested.forEach(ul => ul.classList.add('active'));
+                
+                const allCarets = document.querySelectorAll('.tree-caret');
+                allCarets.forEach(caret => {
+                    caret.classList.add('expanded');
+                    caret.textContent = '▼';
+                });
+            }
+
+            // Función para colapsar todo
+            function collapseAll() {
+                const allNested = document.querySelectorAll('.nested');
+                allNested.forEach(ul => ul.classList.remove('active'));
+                
+                const allCarets = document.querySelectorAll('.tree-caret');
+                allCarets.forEach(caret => {
+                    caret.classList.remove('expanded');
+                    caret.textContent = '▶';
+                });
+                
+                // Expandir solo la raíz
+                const rootCaret = document.querySelector('.tree > li .tree-caret');
+                if (rootCaret) {
+                    rootCaret.classList.add('expanded');
+                    rootCaret.textContent = '▼';
+                    const rootNested = rootCaret.closest('li').querySelector('.nested');
+                    if (rootNested) rootNested.classList.add('active');
+                }
             }
 
             // Event listeners
-            searchInput.addEventListener('keyup', function(e) {
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(performSearch, 300);
+            });
+
+            searchInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
-                    performSearch();
-                } else {
+                    e.preventDefault();
+                    clearTimeout(searchTimeout);
                     performSearch();
                 }
             });
 
-            // Funciones globales para los botones
+            // Funciones globales
+            window.toggleNode = toggleNode;
             window.performSearch = performSearch;
             window.clearSearch = clearSearch;
-
-            // Expandir/colapsar todo
-            window.expandAll = function() {
-                var allNested = document.querySelectorAll('.nested');
-                allNested.forEach(function(ul) {
-                    ul.classList.add('active');
-                });
-                var allCarets = document.querySelectorAll('.caret');
-                allCarets.forEach(function(span) {
-                    span.classList.add('caret-down');
-                });
-            };
-
-            window.collapseAll = function() {
-                var allNested = document.querySelectorAll('.nested');
-                allNested.forEach(function(ul) {
-                    ul.classList.remove('active');
-                });
-                var allCarets = document.querySelectorAll('.caret');
-                allCarets.forEach(function(span) {
-                    span.classList.remove('caret-down');
-                });
-                // Mantener expandida solo la raíz
-                var rootCaret = document.querySelector('.tree > li > .caret');
-                if (rootCaret) {
-                    rootCaret.classList.add('caret-down');
-                    var rootNested = rootCaret.parentElement.querySelector('.nested');
-                    if (rootNested) rootNested.classList.add('active');
-                }
-            };
+            window.expandAll = expandAll;
+            window.collapseAll = collapseAll;
 
             // Atajos de teclado
             document.addEventListener('keydown', function(e) {
